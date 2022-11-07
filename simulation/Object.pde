@@ -3,29 +3,30 @@ class Object{
   char type;
   float x;
   float y;
+  float xVel;
+  float yVel;
+  int closestScissors;
+  int closestRock;
+  int closestPaper;
+  int maxx = width;
+  int maxy = height;
+  
   
   Object(){
-    x = random(0, width);
-    y = random(0, height);
+    x= random(maxx/5, (3*maxx)/4);
+    y = random(maxy/5, (3*maxy)/4);
     int num = int(random(0, 3));
     if (num == 1){
       type = 'r';
+      image = loadImage("rock.png");
     }
     else if (num == 2){
       type = 'p';
+      image = loadImage("paper.png");
     }
     else{
       type = 's';
-    }
- 
-    if (type == 'r'){
-       image = loadImage("rock.png");
-    }
-    else if (type == 'p'){
-       image = loadImage("paper.png");
-    }
-    else{
-       image = loadImage("scissors.png");
+      image = loadImage("scissors.png");
     }
   }
   
@@ -38,42 +39,74 @@ class Object{
   float getY(){
     return y; 
   }
+  float getXVel(){
+    return xVel;
+  }
+  float getYVel(){
+    return yVel;
+  }
   char getType(){
    return type; 
   }
   
-  void update(){
-    float xChange = random(-3,3);
-    float yChange = random(-3,3);
-    if (x + xChange > width){
-      x-= xChange;
+  int getClosest(char type){
+    if (type == 's'){
+      return closestScissors;
+    } 
+    else if (type == 'p'){
+      return closestPaper;
     }
     else{
-      x+=xChange;
-    }
-    if (y + yChange > height){
-      y-= yChange;
-    }
-    else{
-      y+=yChange;
-    }
-    if (x + xChange < 0){
-      x+= abs(xChange);  
-    }
-    else{
-      x+=xChange;
-    }
-    if (y + yChange < 0){
-      y+= abs(yChange);
-    }
-    else{
-      y+=yChange;
+      return closestRock;
     }
   }
   
-  void kill (char val){
-    if (val == 'p'){
-      image = loadImage("paper.png");
+  void setClosest(char type, int num){
+    if (type == 's'){
+      closestScissors = num;
+    } 
+    else if (type == 'p'){
+      closestPaper = num;
     }
+    else{
+      closestRock = num;
+    } 
   }
+  
+  void update(){
+    if (x + xVel > maxx - 50){
+      xVel = xVel * -1;
+    }
+    if (y + yVel > maxy - 50){
+      yVel = yVel * -1;
+    }
+    if (x - abs(xVel) < 50){
+      xVel = -1 * xVel;  
+    }
+    if (y - abs(yVel) < 50){
+      yVel = -1 * yVel;
+    }
+    
+    x = x + xVel;
+    y = y + yVel;
+    
+  }
+  
+  void setVelocity(float xvelocity, float yvelocity){
+    xVel = xvelocity;
+    yVel = yvelocity;
+  }
+  
+  void switchToPaper(){
+    type = 'p';
+    image = loadImage("paper.png");
+  }
+  void swtichToScissors(){
+    type = 's';
+    image = loadImage("scissors.png");
+  }
+  void switchToRock(){
+    type = 'r';
+    image = loadImage("rock.png");
+  }  
 }
