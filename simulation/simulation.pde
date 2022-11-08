@@ -1,9 +1,10 @@
-public Object[] objects = new Object[50];
+int amount = 50;
+public Object[] objects = new Object[amount];
 int radius = 30;
 
 void setup(){
   //background(0);
-  size(800, 800);
+  size(1000, 750);
   for (int i = 0; i < objects.length; i++){
     objects[i] = new Object();
     if (objects[i].getType() == 's'){
@@ -22,21 +23,42 @@ void draw(){
   frameRate(1000000000);
   smooth();
   background(0);
+  ArrayList<Integer> rock = new ArrayList<Integer>();
+  ArrayList<Integer> paper = new ArrayList<Integer>();
+  ArrayList<Integer> scissors = new ArrayList<Integer>();
   for (int i = 0; i < objects.length; i++)
   {
+    objects[i].update();
     for (int j = 0; j < objects.length; j++)
     {
+      if (objects[j].getType() == 'r'){
+        rock.add(j);
+      }
+      else if (objects[j].getType() == 'p'){
+        paper.add(j);
+      }
+      else{
+        scissors.add(j);
+      }
+      
+      
+      objects[i].update();
       if (i != j){
-        if (objects[i].getType() == 'r' && objects[j].getType() == 's'){ // if you are a rock and that is a scissor
+        if (objects[i].getType() == 'r' && objects[j].getType() == 's'){
           float currentdistance = abs(dist(objects[i].getX(), objects[i].getY(), objects[j].getX(), objects[j].getY()));
           float closestdistance = abs(dist(objects[i].getX(), objects[i].getY(), objects[objects[i].getClosest('s')].getX(), objects[objects[i].getClosest('s')].getY()));
           if (currentdistance < closestdistance){
             objects[i].setClosest('s', j);
           }
-          float xvel = (objects[objects[i].getClosest('s')].getX()-objects[i].getX()) / (abs(objects[objects[i].getClosest('s')].getX()-objects[i].getX()) * 50);
-          float yvel = (objects[objects[i].getClosest('s')].getY()-objects[i].getY()) / (abs((objects[objects[i].getClosest('s')].getY()-objects[i].getY())) * 50);
+          float xvel = (objects[objects[i].getClosest('s')].getX()-objects[i].getX()) / (abs(objects[objects[i].getClosest('s')].getX()-objects[i].getX()) * 400);
+          float yvel = (objects[objects[i].getClosest('s')].getY()-objects[i].getY()) / (abs((objects[objects[i].getClosest('s')].getY()-objects[i].getY())) * 400);
           if (!Float.isNaN(xvel) && !Float.isNaN(yvel)){
-            objects[i].setVelocity(xvel + random(-0.08, 0.08), yvel + random(-0.08, 0.08));
+            if (objects[i].getClosest('s') != -1){
+              objects[i].setVelocity(xvel + random(-0.02, 0.02), yvel + random(-0.02, 0.02));
+            }
+            else{
+              objects[i].setVelocity(random(-0.02, 0.02), random(-0.02, 0.02));
+            }
           }
         }
         else if (objects[i].getType() == 's' && objects[j].getType() == 'p'){
@@ -45,10 +67,15 @@ void draw(){
           if (currentdistance < closestdistance){
             objects[i].setClosest('p', j);
           }
-          float xvel = (objects[objects[i].getClosest('p')].getX()-objects[i].getX()) / (abs(objects[objects[i].getClosest('p')].getX()-objects[i].getX()) * 50);
-          float yvel = (objects[objects[i].getClosest('p')].getY()-objects[i].getY()) / (abs((objects[objects[i].getClosest('p')].getY()-objects[i].getY())) * 50);
+          float xvel = (objects[objects[i].getClosest('p')].getX()-objects[i].getX()) / (abs(objects[objects[i].getClosest('p')].getX()-objects[i].getX()) * 400);
+          float yvel = (objects[objects[i].getClosest('p')].getY()-objects[i].getY()) / (abs((objects[objects[i].getClosest('p')].getY()-objects[i].getY())) * 400);
           if (!Float.isNaN(xvel) && !Float.isNaN(yvel)){
-            objects[i].setVelocity(xvel + random(-0.08, 0.08), yvel + random(-0.08, 0.08));
+            if (objects[i].getClosest('p') != -1){
+              objects[i].setVelocity(xvel + random(-0.02, 0.02), yvel + random(-0.02, 0.02));
+            }
+            else{
+              objects[i].setVelocity(random(-0.02, 0.02), random(-0.02, 0.02));
+            }
           }
         }
         else if (objects[i].getType() == 'p' && objects[j].getType() == 'r'){
@@ -57,20 +84,23 @@ void draw(){
           if (currentdistance < closestdistance){
             objects[i].setClosest('r', j);
           }
-          float xvel = (objects[objects[i].getClosest('r')].getX()-objects[i].getX()) / (abs(objects[objects[i].getClosest('r')].getX()-objects[i].getX()) * 50);
-          float yvel = (objects[objects[i].getClosest('r')].getY()-objects[i].getY()) / (abs(objects[objects[i].getClosest('r')].getY()-objects[i].getY()) * 50);
+          float xvel = (objects[objects[i].getClosest('r')].getX()-objects[i].getX()) / (abs(objects[objects[i].getClosest('r')].getX()-objects[i].getX()) * 400);
+          float yvel = (objects[objects[i].getClosest('r')].getY()-objects[i].getY()) / (abs(objects[objects[i].getClosest('r')].getY()-objects[i].getY()) * 400);
           if (!Float.isNaN(xvel) && !Float.isNaN(yvel)){
-            objects[i].setVelocity(xvel + random(-0.08, 0.08), yvel + random(-0.08, 0.08));
+            if (objects[i].getClosest('r') != -1){
+              objects[i].setVelocity(xvel + random(-0.02, 0.02), yvel + random(-0.02, 0.02));
+            }
+            else{
+              objects[i].setVelocity(random(-0.02, 0.02), random(-0.02, 0.02));
+            }
           }
         }
+      objects[i].update();  
       }
       else{
-        objects[i].setVelocity(random(-0.1, 0.1), random(-0.1, 0.1));
+        objects[i].setVelocity(random(-0.02, 0.02), random(-0.02, 0.02));
       }
 
-      
-      
-   
       if (abs(dist(objects[i].getX(), objects[i].getY(), objects[j].getX(), objects[j].getY())) < (radius))
       {
         if (objects[i].getType() == 'r' && objects[j].getType() == 'p')
@@ -86,7 +116,31 @@ void draw(){
            objects[i].switchToRock(); 
         }
       }
-      objects[i].update();
+    }
+    
+    if (objects[i].getClosest('r') != -1 && objects[objects[i].getClosest('r')].getType() != 'p'){
+      if (rock.size() == 0){
+          objects[i].setClosest('r', -1);
+      }
+      else{
+        objects[i].setClosest('r', rock.get(int(random(0,rock.size()))));
+      }
+    }
+    if (objects[i].getClosest('p') != -1 && objects[objects[i].getClosest('p')].getType() != 'p'){
+      if (paper.size() == 0){
+          objects[i].setClosest('p', -1);
+      }
+      else{
+        objects[i].setClosest('p', paper.get(int(random(0,paper.size()))));
+      }
+    }
+    if (objects[i].getClosest('s') != -1 && objects[objects[i].getClosest('s')].getType() != 's'){
+      if (scissors.size() == 0){
+        objects[i].setClosest('s', -1);
+      }
+      else{
+        objects[i].setClosest('s', scissors.get(int(random(0,scissors.size()))));
+      }
     }
     image(objects[i].getImage(), objects[i].getX(), objects[i].getY(), radius, radius);
   }
