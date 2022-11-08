@@ -54,10 +54,10 @@ void draw(){
           float yvel = (objects[objects[i].getClosest('s')].getY()-objects[i].getY()) / (abs((objects[objects[i].getClosest('s')].getY()-objects[i].getY())) * 400);
           if (!Float.isNaN(xvel) && !Float.isNaN(yvel)){
             if (objects[i].getClosest('s') != -1){
-              objects[i].setVelocity(xvel + random(-0.02, 0.02), yvel + random(-0.02, 0.02));
+              objects[i].setVelocity(xvel + random(-0.005, 0.005), yvel + random(-0.005, 0.005));
             }
             else{
-              objects[i].setVelocity(random(-0.02, 0.02), random(-0.02, 0.02));
+              objects[i].setVelocity(random(-0.01, 0.01), random(-0.01, 0.01));
             }
           }
         }
@@ -71,10 +71,10 @@ void draw(){
           float yvel = (objects[objects[i].getClosest('p')].getY()-objects[i].getY()) / (abs((objects[objects[i].getClosest('p')].getY()-objects[i].getY())) * 400);
           if (!Float.isNaN(xvel) && !Float.isNaN(yvel)){
             if (objects[i].getClosest('p') != -1){
-              objects[i].setVelocity(xvel + random(-0.02, 0.02), yvel + random(-0.02, 0.02));
+              objects[i].setVelocity(xvel + random(-0.005, 0.005), yvel + random(-0.005, 0.005));
             }
             else{
-              objects[i].setVelocity(random(-0.02, 0.02), random(-0.02, 0.02));
+              objects[i].setVelocity(random(-0.01, 0.01), random(-0.01, 0.01));
             }
           }
         }
@@ -88,10 +88,10 @@ void draw(){
           float yvel = (objects[objects[i].getClosest('r')].getY()-objects[i].getY()) / (abs(objects[objects[i].getClosest('r')].getY()-objects[i].getY()) * 400);
           if (!Float.isNaN(xvel) && !Float.isNaN(yvel)){
             if (objects[i].getClosest('r') != -1){
-              objects[i].setVelocity(xvel + random(-0.02, 0.02), yvel + random(-0.02, 0.02));
+              objects[i].setVelocity(xvel + random(-0.005, 0.005), yvel + random(-0.005, 0.005));
             }
             else{
-              objects[i].setVelocity(random(-0.02, 0.02), random(-0.02, 0.02));
+              objects[i].setVelocity(random(-0.01, 0.01), random(-0.01, 0.01));
             }
           }
         }

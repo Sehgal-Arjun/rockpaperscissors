@@ -13,8 +13,8 @@ class Object{
   
   
   Object(){
-    x= random(maxx/5, (3*maxx)/4);
-    y = random(maxy/5, (3*maxy)/4);
+    x= random(maxx/8, (3*maxx)/3.5);
+    y = random(maxy/8, (3*maxy)/3.5);
     int num = int(random(0, 3));
     if (num == 1){
       type = 'r';
